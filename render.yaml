@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: symfony-api
+    env: docker
+    repo: https://github.com/hakim-az/symfony-tasks-api
+    region: frankfurt
+    plan: free
+    dockerContext: ./backend
+    disk:
+      name: db-storage
+      mountPath: /app/var
+      sizeGB: 1
