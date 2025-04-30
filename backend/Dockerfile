@@ -14,17 +14,17 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Set working directory inside container
 WORKDIR /app
 
-# Copy Symfony project files into the container
+# Copy only backend (assuming Dockerfile is inside /backend)
 COPY . /app
 
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Expose port 8000 for the Symfony server
-EXPOSE 8000
-
-# Set environment variables (can also override via Render's dashboard)
+# Set environment variables (can also be overridden in Render settings)
 ENV APP_ENV=prod
 
-# Start the Symfony local web server
+# Expose port 8000 for Symfony
+EXPOSE 8000
+
+# Set default command to run Symfony server (built-in for dev use)
 CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
